@@ -19,7 +19,6 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <lombok.version>1.18.34</lombok.version>
         <springdoc-openapi>2.4.0</springdoc-openapi>     
-        <maven.archetypep.version>3.2.1</maven.archetypep.version>
  
     </properties> 
        
@@ -145,24 +144,7 @@
                         </path> 
                     </annotationProcessorPaths>
                 </configuration>
-            </plugin>   
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-archetype-plugin</artifactId>
-                <version>${maven.archetypep.version}</version>
-                <configuration>
-                    <outputDirectory>/home/sotobotero/workspace/repositories/personal/teaching_resources/archetypes/sotobotero-spring-boot-security-mapstruct-crud</outputDirectory>  
-                    <propertyFile>archetype.properties</propertyFile>    
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>archetype-create</id>
-                        <goals>
-                            <goal>create-from-project</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>          
+            </plugin>            
         </plugins>
     </build>
 </project>
