@@ -49,18 +49,17 @@ private Environment env;
 
     @Bean
     public UserDetailsService users() {
-        UserDetails user = User.builder()
-                .username("user")
-                .password(passwordEncoder().encode("[REDACTED]"))
-                .roles("USER")
-                .build();
 
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("[REDACTED]"))
-                .roles("USER", "ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(user, admin);
+    String username = env.getRequiredProperty("APP_USER");
+    String password = env.getRequiredProperty("APP_PASSWORD");
+
+    UserDetails admin = User.builder()
+            .username(username)
+            .password(passwordEncoder().encode(password))
+            .roles("USER", "ADMIN")
+            .build();
+
+    return new InMemoryUserDetailsManager(admin);
     }
 
     @Bean

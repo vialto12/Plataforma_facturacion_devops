@@ -65,3 +65,6 @@ docker-data/
 *.tmp
 *.temp
 *.swp
+
+# Herramientas locales
+/tools/
