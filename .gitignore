@@ -68,3 +68,6 @@ docker-data/
 
 # Herramientas locales
 /tools/
+
+# Backups locales de bases de datos
+backups/

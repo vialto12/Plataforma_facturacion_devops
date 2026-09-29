@@ -1,0 +1,54 @@
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: plataforma-postgres
+
+    environment:
+      POSTGRES_DB: billingapp_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d billingapp_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - plataforma-network
+
+  backend:
+    build:
+      context: ../..
+      dockerfile: infraestructura/docker/backend/Dockerfile
+
+    container_name: plataforma-backend
+
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      APP_USER: ${APP_USER}
+      APP_PASSWORD: ${APP_PASSWORD}
+      DB_URL: jdbc:postgresql://postgres:5432/billingapp_db
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    networks:
+      - plataforma-network
+
+volumes:
+  postgres_data:
+
+networks:
+  plataforma-network:
+    driver: bridge
