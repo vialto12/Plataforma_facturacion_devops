@@ -46,6 +46,22 @@ services:
     networks:
       - plataforma-network
 
+  frontend:
+    build:
+      context: ../..
+      dockerfile: infraestructura/docker/frontend/Dockerfile
+
+    container_name: plataforma-frontend
+
+    ports:
+      - "80:80"
+
+    depends_on:
+      - backend
+
+    networks:
+      - plataforma-network
+
 volumes:
   postgres_data:
 

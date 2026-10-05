@@ -1,0 +1,22 @@
+# Git
+.git
+.gitignore
+
+# Variables y secretos locales
+.env
+
+# Backups locales
+backups/
+
+# Dependencias del frontend
+frontend/node_modules/
+
+# Builds locales
+frontend/dist/
+
+# Build del backend
+backend/target/
+
+# IDE
+.vscode/
+.idea/
