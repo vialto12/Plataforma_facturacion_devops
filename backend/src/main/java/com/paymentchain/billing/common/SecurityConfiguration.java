@@ -78,9 +78,12 @@ private Environment env;
                 .authorizeHttpRequests((authz) -> {
                     // Use lambda and stream to create AntPathRequestMatcher instances
                     authz.requestMatchers(Stream.of(NO_AUTH_LIST)
-                            .map(AntPathRequestMatcher::new)
-                            .toArray(AntPathRequestMatcher[]::new))
-                            .permitAll();
+                        .map(AntPathRequestMatcher::new)
+                        .toArray(AntPathRequestMatcher[]::new))
+                        .permitAll();
+
+                    authz.requestMatchers("/actuator/health").permitAll();
+
                     authz.anyRequest().authenticated();
                 })
                 .csrf(csrf -> csrf.disable())

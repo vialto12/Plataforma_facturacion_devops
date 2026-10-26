@@ -36,15 +36,22 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
 
-    ports:
-      - "8080:8080"
+    #ports:
+    #  - "8080:8080"
 
     depends_on:
       postgres:
-        condition: service_healthy
+       condition: service_healthy
 
     networks:
       - plataforma-network
+
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
 
   frontend:
     build:
@@ -56,8 +63,16 @@ services:
     ports:
       - "80:80"
 
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
     depends_on:
-      - backend
+      backend:
+         condition: service_healthy
 
     networks:
       - plataforma-network
