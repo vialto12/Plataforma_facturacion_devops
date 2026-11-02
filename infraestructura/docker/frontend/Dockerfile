@@ -11,7 +11,7 @@ RUN npm ci
 
 COPY frontend/ ./
 
-RUN npm run build -- --prod
+RUN npm run build -- --configuration production
 
 
 # ==========================================
